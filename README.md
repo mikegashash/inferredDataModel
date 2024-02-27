@@ -1,4 +1,4 @@
-# inferredDatModel
+# inferred Data Model from ingested XML - PyTorch
 
 Define a custom dataset class XMLDataset to load shredded XML data and parse relevant information.
 Define a simple CNN architecture using nn.Module and transformations for data augmentation and normalization.
