@@ -1,10 +1,6 @@
-# inferred Data Model from ingested XML - PyTorch
+Define a custom PyTorch dataset class RichXMLDataset to ingest shredded XML insurance policy data, extracting structured features such as premium amount, age, term length, and risk score. 
 
-Define a custom dataset class XMLDataset to load shredded XML data and parse relevant information.
-Define a simple CNN architecture using nn.Module and transformations for data augmentation and normalization.
-Create DataLoader instances for training and validation sets.
-Train the CNN model using the training data and evaluate the trained model on the validation set to measure its accuracy.
+Normalize the numerical features using StandardScaler, and encode policy types as class labels using LabelEncoder. 
+Use a basic Multi-Layer Perceptron (MLP) model built with nn.Module to classify the policies into multiple categories. 
+Load the data with PyTorch DataLoader objects, split into training and validation sets, and train the model over multiple epochs while monitoring classification performance on the validation set.
 
-Replace "path/to/your/shredded/xml/data" with the actual path to your shredded XML data. 
-
-Additionally, adjust the CNN architecture, transformation, and hyperparameters according to a specific problem and dataset.
