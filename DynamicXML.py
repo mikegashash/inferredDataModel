@@ -618,7 +618,8 @@ FIELD_MAP = {
     "regulatory_reporting_written_house_months_extended_rc_100_125": {"type": "int", "description": "Total house months for policies where Coverage A is >100% but <=125% of replacement cost."}
 }
 
-NUMERIC_FIELDS = [k for k, v in FIELD_MAP.items() if v in [float, int]]
+NUMERIC_FIELDS = [k for k, v in FIELD_MAP.items() if v["type"] in ["float", "int"]]
+
 LABEL_FIELD = "policy_type"
 
 class DynamicXMLDataset(Dataset):
@@ -637,8 +638,12 @@ class DynamicXMLDataset(Dataset):
                 for key in NUMERIC_FIELDS:
                     node = root.find(key)
                     if node is None:
-                        raise ValueError(f"Missing key: {key}")
-                    val = self.field_map[key](node.text.strip())
+                      raise ValueError(f"Missing key: {key}")
+                    val_type = self.field_map[key]["type"]
+                    if val_type == "float":
+                      val = float(node.text.strip())
+                    elif val_type == "int":
+                      val = int(node.text.strip())
                     row.append(val)
                 label_node = root.find(LABEL_FIELD)
                 if label_node is None:
