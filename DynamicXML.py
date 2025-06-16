@@ -1,9 +1,10 @@
+import os
 import xml.etree.ElementTree as ET
+import numpy as np
+import torch
 from torch.utils.data import Dataset
 from sklearn.preprocessing import StandardScaler, LabelEncoder
-import torch
-import numpy as np
-import os
+
 
 # Example FIELD_MAP (partial for demo)
 FIELD_MAP = {
@@ -619,7 +620,6 @@ FIELD_MAP = {
 }
 
 NUMERIC_FIELDS = [k for k, v in FIELD_MAP.items() if v["type"] in ["float", "int"]]
-
 LABEL_FIELD = "policy_type"
 
 class DynamicXMLDataset(Dataset):
@@ -638,12 +638,12 @@ class DynamicXMLDataset(Dataset):
                 for key in NUMERIC_FIELDS:
                     node = root.find(key)
                     if node is None:
-                      raise ValueError(f"Missing key: {key}")
+                        raise ValueError(f"Missing key: {key}")
                     val_type = self.field_map[key]["type"]
                     if val_type == "float":
-                      val = float(node.text.strip())
+                        val = float(node.text.strip())
                     elif val_type == "int":
-                      val = int(node.text.strip())
+                        val = int(node.text.strip())
                     row.append(val)
                 label_node = root.find(LABEL_FIELD)
                 if label_node is None:
